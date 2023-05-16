@@ -9,14 +9,10 @@
 #define AdjMatrixGraph_hpp
 
 #include <stdio.h>
-
+#include <string>
 
 
 class AdjMatrixGraph {
-private:
-     //macierz sąsiedztwa
-    
-//    int E; //krawędzi
 public:
     int V; //liczba wierzchołków
     int** matrix;
@@ -27,6 +23,8 @@ public:
     void removeDirected(int u, int v);
     
     void print();
+    
+    void loadFromFile(std::string fileName);
     
 };
 #endif /* AdjMatrixGraph_hpp */

@@ -18,7 +18,8 @@ public:
     void kruskal(AdjListGraph graph);
     void prim(AdjMatrixGraph graph);
     void prim(AdjListGraph graph);
-    int minKey(int key[], bool mstSet[], int V);
+    
+    
 };
 
 #endif /* MST_hpp */

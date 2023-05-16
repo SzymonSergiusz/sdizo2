@@ -23,6 +23,8 @@ public:
     void addDirected(int src, int dest,int weight);
     
     void toPrint();
+    void loadFromFile(std::string fileName);
+
     
 };
 

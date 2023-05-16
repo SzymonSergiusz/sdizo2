@@ -7,7 +7,7 @@
 
 #include "AdjListGraph.hpp"
 #include <iostream>
-
+#include <fstream>
 AdjListGraph::AdjListGraph(int V, int E) : V(V), E(E){
     adj = new std::vector<std::pair<int, int>>[V];
 };
@@ -34,4 +34,32 @@ void AdjListGraph::toPrint() {
             std::cout << "\n";
         }
     }
+}
+
+void AdjListGraph::loadFromFile(std::string fileName) {
+    std::ifstream inputFile(fileName);
+    
+    int newE;
+    inputFile >> newE;
+    int newV;
+    inputFile >> newV;
+    
+    V = newV;
+    adj = new std::vector<std::pair<int, int>>[V];
+
+    
+    if (inputFile.is_open()) {
+        int u;
+        int v;
+        int w;
+        
+        while (inputFile >> u and inputFile >> v and inputFile >> w) {
+            addUndirected(u, v, w);
+        }
+        
+        inputFile.close();
+    } else {
+        std::cout << "Nie odnaleziono pliku " <<fileName <<std::endl;
+    }
+    
 }

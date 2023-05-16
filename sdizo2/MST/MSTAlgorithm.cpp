@@ -45,14 +45,13 @@ void MSTAlgorithm::kruskal(AdjListGraph graph) {
             lista.addDirected(edge.src, edge.dest, edge.weight);
         }
     }
-    std::cout << "MST sum: " << sum;
+    std::cout << "KRUSKAL MST sum: " << sum<<"\n";
     lista.toPrint();
 }
 
 void MSTAlgorithm::kruskal(AdjMatrixGraph graph) {
     std::priority_queue<Edge, std::vector<Edge>, EdgeComparator> pq;
 
-    //macierz
     for (int i = 0; i < graph.V; i++) {
         for (int j = 0; j < graph.V; j++) {
             if (graph.matrix[i][j] != 0) {
@@ -75,8 +74,8 @@ void MSTAlgorithm::kruskal(AdjMatrixGraph graph) {
             macierz.addUndirected(edge.src, edge.dest, edge.weight);
         }
     }
-    std::cout << "MST sum: " << sum;
-    
+    std::cout << "KRUSKAL MST: " << sum<<"\n";
+    macierz.print();
 }
 
 

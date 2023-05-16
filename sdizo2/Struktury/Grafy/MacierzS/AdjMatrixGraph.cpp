@@ -7,6 +7,8 @@
 
 #include "AdjMatrixGraph.hpp"
 #include <iostream>
+#include <fstream>
+
 AdjMatrixGraph::AdjMatrixGraph(int V) : V(V) {
     
     matrix = new int*[V];
@@ -42,3 +44,41 @@ void AdjMatrixGraph::print() {
       std::cout << "\n";
     }
 }
+
+
+void AdjMatrixGraph::loadFromFile(std::string fileName) {
+    std::ifstream inputFile(fileName);
+    
+    int newE;
+    inputFile >> newE;
+    int newV;
+    inputFile >> newV;
+    V = newV;
+    
+    matrix = new int*[V];
+    for (int i = 0; i < V; i++) {
+        matrix[i] = new int[V];
+        
+        for (int j = 0; j < V; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+    
+    if (inputFile.is_open()) {
+        int u;
+        int v;
+        int w;
+        
+        while (inputFile >> u && inputFile >> v && inputFile >> w) {
+            
+            
+            addUndirected(u, v, w);
+        }
+        
+        inputFile.close();
+    } else {
+        std::cout << "Nie odnaleziono pliku " <<fileName <<std::endl;
+    }
+    
+}
+

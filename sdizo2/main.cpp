@@ -9,21 +9,81 @@
 #include "AdjListGraph.hpp"
 #include "MSTAlgorithm.hpp"
 #include <vector>
-int main(int argc, char *argv[]) {
-    
-    AdjListGraph list = AdjListGraph(8, 16);
-    std::vector<std::vector<int>> input = {{0, 1, 5}, {0, 3, 9}, {0, 6, 3}, {1, 2, 9}, {1, 4, 8}, {1, 5, 6}, {1, 7, 7}, {2, 3, 9}, {2, 4, 4}, {2, 6, 5}, {2, 7, 3}, {3, 6, 8}, {4, 5, 2}, {4, 6, 1}, {5, 6, 6}, {6, 7, 9}};
+#include <iostream>
+using namespace std;
 
-    for (auto i : input)
-           list.addUndirected(i[0], i[1], i[2]);
-    
-    MSTAlgorithm mst;
-    mst.prim(list);
-    
-    AdjMatrixGraph macierz = AdjMatrixGraph(8);
-
-    for (auto i : input)
-           macierz.addUndirected(i[0], i[1], i[2]);
-    
-    mst.prim(macierz);
+void displayMenu(string info)
+{
+    cout << endl;
+    cout << info << endl;
+    cout << "1.Wczytaj z pliku" << endl;
+    cout << "2.Prim" << endl;
+    cout << "3.Kruskal" << endl;
+    cout << "5.Utworz losowo" << endl;
+    cout << "6.Wyswietl" << endl;
+    cout << "7.Test (pomiary)" << endl;
+    cout << "0.Powrot do menu" << endl;
+    cout << "Podaj opcje:";
 }
+AdjListGraph adjList(0);
+AdjMatrixGraph adjMatrix(0);
+void menu_mst() {
+    char option;
+    string fileName;
+    MSTAlgorithm mst;
+    do{
+        displayMenu("--- MST ---");
+        cin >> option;
+        cout << endl;
+        switch (option) {
+            case '1':
+                cout << " Podaj nazwę pliku:";
+                cin >> fileName;
+                
+                adjMatrix.loadFromFile(fileName);
+                adjMatrix.print();
+
+                
+                
+                adjList.loadFromFile(fileName);
+                adjList.toPrint();
+                
+                break;
+                
+            case '2':
+                mst.prim(adjMatrix);
+                mst.prim(adjList);
+
+                break;
+                
+            case '3':
+                mst.kruskal(adjMatrix);
+                mst.kruskal(adjList);
+                break;
+        }
+                
+        } while (option != '0');
+        
+    }
+    
+int main(int argc, char *argv[]) {
+        char option;
+        do {
+            cout << endl;
+            cout << "==== MENU GLOWNE ===" << endl;
+            cout << "1.MST" << endl;
+            cout << "0.Wyjscie" << endl;
+            cout << "Podaj opcje:";
+            cin >> option;
+            cout << endl;
+            
+            switch (option){
+                case '1':
+                    menu_mst();
+                    break;
+            }
+            
+        } while (option != '0');
+        
+        return 0;
+    }

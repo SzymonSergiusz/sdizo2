@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		310304C52A12FC8900E3F041 /* MST.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 310304C32A12FC8900E3F041 /* MST.cpp */; };
 		312C311B2A117842008E1A93 /* DisjointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 312C31192A117842008E1A93 /* DisjointSet.cpp */; };
 		312C4F632A1115FE00C91CB9 /* Edge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 312C4F612A1115FE00C91CB9 /* Edge.cpp */; };
 		312C4F662A1117A900C91CB9 /* MSTAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 312C4F642A1117A900C91CB9 /* MSTAlgorithm.cpp */; };
@@ -29,8 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		310304C32A12FC8900E3F041 /* MST.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MST.cpp; sourceTree = "<group>"; };
-		310304C42A12FC8900E3F041 /* MST.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MST.hpp; sourceTree = "<group>"; };
+		310304C72A1321EC00E3F041 /* dane_mst.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_mst.txt; sourceTree = "<group>"; };
+		310304C82A1321EC00E3F041 /* dane_mst2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_mst2.txt; sourceTree = "<group>"; };
 		312C31192A117842008E1A93 /* DisjointSet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DisjointSet.cpp; sourceTree = "<group>"; };
 		312C311A2A117842008E1A93 /* DisjointSet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisjointSet.hpp; sourceTree = "<group>"; };
 		312C4F612A1115FE00C91CB9 /* Edge.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Edge.cpp; path = Grafy/Edge.cpp; sourceTree = "<group>"; };
@@ -56,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		310304C62A131E9400E3F041 /* pliki */ = {
+			isa = PBXGroup;
+			children = (
+				310304C72A1321EC00E3F041 /* dane_mst.txt */,
+				310304C82A1321EC00E3F041 /* dane_mst2.txt */,
+			);
+			path = pliki;
+			sourceTree = "<group>";
+		};
 		312C31182A117818008E1A93 /* DisjointSet */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +92,7 @@
 		317CE6092A0FEBC70043906E /* sdizo2 */ = {
 			isa = PBXGroup;
 			children = (
+				310304C62A131E9400E3F041 /* pliki */,
 				317CE62E2A1109910043906E /* main.cpp */,
 				317CE6122A0FEDEC0043906E /* Struktury */,
 				317CE6112A0FEDCF0043906E /* MST */,
@@ -96,8 +105,6 @@
 			children = (
 				312C4F642A1117A900C91CB9 /* MSTAlgorithm.cpp */,
 				312C4F652A1117A900C91CB9 /* MSTAlgorithm.hpp */,
-				310304C32A12FC8900E3F041 /* MST.cpp */,
-				310304C42A12FC8900E3F041 /* MST.hpp */,
 			);
 			path = MST;
 			sourceTree = "<group>";
@@ -202,7 +209,6 @@
 				317CE62D2A1067B40043906E /* AdjListGraph.cpp in Sources */,
 				312C4F662A1117A900C91CB9 /* MSTAlgorithm.cpp in Sources */,
 				317CE62F2A1109910043906E /* main.cpp in Sources */,
-				310304C52A12FC8900E3F041 /* MST.cpp in Sources */,
 				317CE6262A104ADC0043906E /* AdjMatrixGraph.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
