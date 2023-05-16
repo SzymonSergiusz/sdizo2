@@ -11,12 +11,6 @@
 #include <stdio.h>
 
 class DisjointSet {
-//    struct DSNode {
-//        DSNode* parent;
-//        int rank;
-//    };
-//private:
-//    DSNode* nodes;
 private:
     int* parent;
     int* rank;

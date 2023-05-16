@@ -25,9 +25,10 @@ bool operator<(const Edge& e1, const Edge& e2) {
 
 void MSTAlgorithm::kruskal(AdjListGraph graph) {
     std::priority_queue<Edge, std::vector<Edge>, EdgeComparator> pq;
-    for (int i = 0; i < graph.edges.size(); i++) {
-        pq.push(graph.edges.at(i));
-        
+    for (int i = 0; i < graph.V; i++) {
+        for (int j = 0; j < graph.adj[i].size(); j++) {
+            pq.push(Edge(i, graph.adj[i].at(j).first, graph.adj[i].at(j).second));
+        }
     }
     AdjListGraph lista = AdjListGraph(graph.V, graph.E);
     DisjointSet set = DisjointSet(graph.V);
@@ -40,11 +41,14 @@ void MSTAlgorithm::kruskal(AdjListGraph graph) {
         if (set.findSet(edge.src) != set.findSet(edge.dest)) {
             set.union_(edge.src, edge.dest);
             sum += edge.weight;
-            lista.addUndirected(edge.src, edge.dest, edge.weight);
+//            lista.addUndirected(edge.src, edge.dest, edge.weight);
+            lista.addDirected(edge.src, edge.dest, edge.weight);
         }
     }
     std::cout << "MST sum: " << sum;
+    lista.toPrint();
 }
+
 void MSTAlgorithm::kruskal(AdjMatrixGraph graph) {
     std::priority_queue<Edge, std::vector<Edge>, EdgeComparator> pq;
 
@@ -118,22 +122,46 @@ void MSTAlgorithm::prim(AdjMatrixGraph graph) {
     macierz.print();
 
 };
+
+
 void MSTAlgorithm::prim(AdjListGraph graph) {
+    AdjListGraph lista = AdjListGraph(graph.V);
+    int sum = 0;
     
+    int currentEdge = 0;
+    int selected[graph.V];
+    for (int i = 0; i < graph.V; i++) {
+        selected[i] = false;
+    }
+    
+    selected[0] = true;
+    
+    while (currentEdge < graph.V - 1) {
+        int min = INT_MAX;
+        int u = 0;;
+        int v = 0;
+        
+        for (int i = 0; i < graph.V; i++) {
+            if (selected[i]) {
+                for (int j = 0; j < graph.adj[i].size(); j++) {
+                    if (!selected[graph.adj[i].at(j).first] && graph.adj[i].at(j).second) {
+                        if (min > graph.adj[i].at(j).second) {
+                            min = graph.adj[i].at(j).second;
+                            u = i;
+                            v = graph.adj[i].at(j).first;
+                        }
+                    }
+                }
+            }
+        }
+        
+        selected[v] = true;
+        currentEdge++;
+        sum += min;
+        lista.addDirected(u, v, min);
+    }
+    
+    std::cout << "PRIM MST: " << sum <<"\n";
+    lista.toPrint();
 };
 
-int MSTAlgorithm::minKey(int key[], bool mstSet[], int V)
-{
-    // Initialize min value
-    int min = INT_MAX;
-    int min_index = 0;
- 
-    for (int v = 0; v < V; v++)
-        if (mstSet[v] == false && key[v] < min) {
-            min = key[v];
-            min_index = v;
-        }
-            
- 
-    return min_index;
-}

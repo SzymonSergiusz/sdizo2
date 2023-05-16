@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
            list.addUndirected(i[0], i[1], i[2]);
     
     MSTAlgorithm mst;
-    mst.kruskal(list);
+    mst.prim(list);
     
     AdjMatrixGraph macierz = AdjMatrixGraph(8);
 

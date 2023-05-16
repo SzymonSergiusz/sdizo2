@@ -14,18 +14,15 @@ class AdjListGraph {
 public:
     int V;
     int E;
-    
+    AdjListGraph(int V);
     AdjListGraph(int V, int E);
     
-    std::vector<Edge> edges;
+    std::vector<std::pair<int, int>> *adj;
     
+    void addUndirected(int src, int dest,int weight);
+    void addDirected(int src, int dest,int weight);
     
-    
-    void addUndirected(int u, int v,int w);
-    void addDirected(int u, int v, int w);
-    void removeUndirected(int u, int v);
-    void removeDirected(int u, int v);
-    void toString();
+    void toPrint();
     
 };
 
