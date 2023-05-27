@@ -15,6 +15,7 @@
 class AdjMatrixGraph {
 public:
     int V; //liczba wierzchołków
+    int E;
     int** matrix;
     AdjMatrixGraph(int V);
     void addUndirected(int u, int v,int w);
@@ -25,6 +26,11 @@ public:
     void print();
     
     void loadFromFile(std::string fileName);
+    void loadFromFileDijkstra(std::string fileName);
     
+    void generateGraphDirected(int V, float density);
+    void generateGraphUndirected(int V, float density);
+    
+    int random(int doIlu);
 };
 #endif /* AdjMatrixGraph_hpp */

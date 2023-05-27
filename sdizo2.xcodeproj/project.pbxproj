@@ -13,6 +13,8 @@
 		317CE6262A104ADC0043906E /* AdjMatrixGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 317CE6242A104ADC0043906E /* AdjMatrixGraph.cpp */; };
 		317CE62D2A1067B40043906E /* AdjListGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 317CE62B2A1067B40043906E /* AdjListGraph.cpp */; };
 		317CE62F2A1109910043906E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 317CE62E2A1109910043906E /* main.cpp */; };
+		3189C0522A1FB6110062FC6D /* EdgeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3189C0502A1FB6110062FC6D /* EdgeList.cpp */; };
+		3189C05C2A1FCEDA0062FC6D /* ShortestPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3189C05A2A1FCEDA0062FC6D /* ShortestPath.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +44,15 @@
 		317CE62B2A1067B40043906E /* AdjListGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdjListGraph.cpp; sourceTree = "<group>"; };
 		317CE62C2A1067B40043906E /* AdjListGraph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AdjListGraph.hpp; sourceTree = "<group>"; };
 		317CE62E2A1109910043906E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3189C0502A1FB6110062FC6D /* EdgeList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EdgeList.cpp; sourceTree = "<group>"; };
+		3189C0512A1FB6110062FC6D /* EdgeList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EdgeList.hpp; sourceTree = "<group>"; };
+		3189C05A2A1FCEDA0062FC6D /* ShortestPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShortestPath.cpp; sourceTree = "<group>"; };
+		3189C05B2A1FCEDA0062FC6D /* ShortestPath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShortestPath.hpp; sourceTree = "<group>"; };
+		3189C05D2A1FE4FA0062FC6D /* dane_droga_sk2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_droga_sk2.txt; sourceTree = "<group>"; };
+		3189C05E2A1FE4FA0062FC6D /* dane_droga_sk1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_droga_sk1.txt; sourceTree = "<group>"; };
+		3189C05F2A1FEE840062FC6D /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		3189C0602A22140A0062FC6D /* dane_droga_sk_BF.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_droga_sk_BF.txt; sourceTree = "<group>"; };
+		3189C0612A2216030062FC6D /* testBF.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBF.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +69,13 @@
 		310304C62A131E9400E3F041 /* pliki */ = {
 			isa = PBXGroup;
 			children = (
+				3189C0612A2216030062FC6D /* testBF.txt */,
+				3189C0602A22140A0062FC6D /* dane_droga_sk_BF.txt */,
+				3189C05E2A1FE4FA0062FC6D /* dane_droga_sk1.txt */,
+				3189C05D2A1FE4FA0062FC6D /* dane_droga_sk2.txt */,
 				310304C72A1321EC00E3F041 /* dane_mst.txt */,
 				310304C82A1321EC00E3F041 /* dane_mst2.txt */,
+				3189C05F2A1FEE840062FC6D /* test.txt */,
 			);
 			path = pliki;
 			sourceTree = "<group>";
@@ -92,6 +108,7 @@
 		317CE6092A0FEBC70043906E /* sdizo2 */ = {
 			isa = PBXGroup;
 			children = (
+				3189C0592A1FCEC80062FC6D /* ShortestPath */,
 				310304C62A131E9400E3F041 /* pliki */,
 				317CE62E2A1109910043906E /* main.cpp */,
 				317CE6122A0FEDEC0043906E /* Struktury */,
@@ -123,6 +140,7 @@
 		317CE6272A104C010043906E /* Grafy */ = {
 			isa = PBXGroup;
 			children = (
+				3189C04F2A1FB4070062FC6D /* ListaKrawedzi */,
 				317CE62A2A1067A10043906E /* ListaS */,
 				317CE6292A1067900043906E /* MacierzS */,
 			);
@@ -145,6 +163,24 @@
 				317CE62C2A1067B40043906E /* AdjListGraph.hpp */,
 			);
 			path = ListaS;
+			sourceTree = "<group>";
+		};
+		3189C04F2A1FB4070062FC6D /* ListaKrawedzi */ = {
+			isa = PBXGroup;
+			children = (
+				3189C0502A1FB6110062FC6D /* EdgeList.cpp */,
+				3189C0512A1FB6110062FC6D /* EdgeList.hpp */,
+			);
+			path = ListaKrawedzi;
+			sourceTree = "<group>";
+		};
+		3189C0592A1FCEC80062FC6D /* ShortestPath */ = {
+			isa = PBXGroup;
+			children = (
+				3189C05A2A1FCEDA0062FC6D /* ShortestPath.cpp */,
+				3189C05B2A1FCEDA0062FC6D /* ShortestPath.hpp */,
+			);
+			path = ShortestPath;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,10 +242,12 @@
 			files = (
 				312C311B2A117842008E1A93 /* DisjointSet.cpp in Sources */,
 				312C4F632A1115FE00C91CB9 /* Edge.cpp in Sources */,
+				3189C05C2A1FCEDA0062FC6D /* ShortestPath.cpp in Sources */,
 				317CE62D2A1067B40043906E /* AdjListGraph.cpp in Sources */,
 				312C4F662A1117A900C91CB9 /* MSTAlgorithm.cpp in Sources */,
 				317CE62F2A1109910043906E /* main.cpp in Sources */,
 				317CE6262A104ADC0043906E /* AdjMatrixGraph.cpp in Sources */,
+				3189C0522A1FB6110062FC6D /* EdgeList.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

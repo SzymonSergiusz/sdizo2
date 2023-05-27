@@ -8,7 +8,7 @@
 #include "AdjMatrixGraph.hpp"
 #include <iostream>
 #include <fstream>
-
+#include <random>
 AdjMatrixGraph::AdjMatrixGraph(int V) : V(V) {
     
     matrix = new int*[V];
@@ -24,6 +24,9 @@ AdjMatrixGraph::AdjMatrixGraph(int V) : V(V) {
 void AdjMatrixGraph::addUndirected(int u, int v, int w) {
     matrix[u][v] = w;
     matrix[v][u] = w;
+}
+void AdjMatrixGraph::addDirected(int u, int v, int w) {
+    matrix[u][v] = w;
 }
 
 void AdjMatrixGraph::removeUndirected(int u, int v) {
@@ -82,3 +85,138 @@ void AdjMatrixGraph::loadFromFile(std::string fileName) {
     
 }
 
+void AdjMatrixGraph::loadFromFileDijkstra(std::string fileName) {
+    std::ifstream inputFile(fileName);
+    
+    int newE;
+    inputFile >> newE;
+    int newV;
+    inputFile >> newV;
+    int src;
+    inputFile >> src;
+    V = newV;
+    
+    matrix = new int*[V];
+    for (int i = 0; i < V; i++) {
+        matrix[i] = new int[V];
+        
+        for (int j = 0; j < V; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+    
+    if (inputFile.is_open()) {
+        int u;
+        int v;
+        int w;
+        
+        while (inputFile >> u && inputFile >> v && inputFile >> w) {
+            
+            
+            addDirected(u, v, w);
+        }
+        
+        inputFile.close();
+    } else {
+        std::cout << "Nie odnaleziono pliku " <<fileName <<std::endl;
+    }
+    
+    
+}
+void AdjMatrixGraph::generateGraphDirected(int nV, float density) {
+    V = nV;
+    
+    matrix = new int*[V];
+    for (int i = 0; i < V; i++) {
+        matrix[i] = new int[V];
+        
+        for (int j = 0; j < V; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+    
+    
+    int nEdges = int((density * float(nV*(nV-1)))/2);
+    
+    std::cout << "Liczba krawedzi " << nEdges <<"\n";
+    
+    int countEdges = 0;
+    for (int i = 0; i < V-1; i++) {
+        
+        if (i+1 == V-1) {
+            addDirected(i, 0, random(20)+1);
+        }else {
+            addDirected(i, i+1, random(20)+1);
+        }
+        countEdges++;
+        
+    }
+    
+    
+    while (nEdges >= countEdges) {
+        
+        int src = random(nV-1);
+        int dest = random(nV-1);
+
+        while (src == dest) {
+            src = random(nV-1);
+            dest = random(nV-1);
+        }
+        addDirected(src, dest, random(nV)+1);
+        std::cout << "cE: " << countEdges <<"\n";
+        countEdges++;
+    }
+    E = nEdges;
+}
+
+void AdjMatrixGraph::generateGraphUndirected(int nV, float density) {
+    V = nV;
+    
+    matrix = new int*[V];
+    for (int i = 0; i < V; i++) {
+        matrix[i] = new int[V];
+        
+        for (int j = 0; j < V; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+    
+    
+    int nEdges = int((density * float(nV*(nV-1)))/2);
+    
+    std::cout << "Liczba krawedzi " << nEdges <<"\n";
+    
+    int countEdges = 0;
+    for (int i = 0; i < V-1; i++) {
+        
+        if (i+1 == V-1) {
+            addUndirected(i, 0, random(20)+1);
+        } else {
+            addUndirected(i, i+1, random(20)+1);
+        }
+        countEdges++;
+    }
+    
+    while (nEdges >= countEdges) {
+        
+        int src = random(nV-1);
+        int dest = random(nV-1);
+
+        while (src == dest) {
+            src = random(nV-1);
+            dest = random(nV-1);
+        }
+        std::cout << "cE: " << countEdges <<"\n";
+        countEdges++;
+        addUndirected(src, dest, random(20)+1);
+    }
+    E = nEdges;
+}
+
+int AdjMatrixGraph::random(int doIlu) {
+    std::random_device randDev;
+    std::mt19937 rng(randDev());
+    std::uniform_int_distribution<> distr(0, doIlu);
+    
+    return distr(rng);
+}

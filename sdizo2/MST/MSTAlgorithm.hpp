@@ -11,13 +11,15 @@
 #include <stdio.h>
 #include "AdjListGraph.hpp"
 #include "AdjMatrixGraph.hpp"
-
+#include "EdgeList.hpp"
 class MSTAlgorithm {
 public:
-    void kruskal(AdjMatrixGraph graph);
-    void kruskal(AdjListGraph graph);
-    void prim(AdjMatrixGraph graph);
-    void prim(AdjListGraph graph);
+    
+    int mstVal = 0;
+    EdgeList kruskal(AdjMatrixGraph graph);
+    EdgeList kruskal(AdjListGraph graph);
+    EdgeList prim(AdjMatrixGraph graph);
+    EdgeList prim(AdjListGraph graph);
     
     
 };

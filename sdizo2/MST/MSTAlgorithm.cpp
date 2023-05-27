@@ -10,6 +10,7 @@
 #include "DisjointSet.hpp"
 #include <iostream>
 #include <functional>
+#include "EdgeList.hpp"
 
 struct EdgeComparator
 {
@@ -23,14 +24,15 @@ bool operator<(const Edge& e1, const Edge& e2) {
     return e1.weight < e2.weight;
 }
 
-void MSTAlgorithm::kruskal(AdjListGraph graph) {
+EdgeList MSTAlgorithm::kruskal(AdjListGraph graph) {
+    EdgeList listaKrawedzi;
     std::priority_queue<Edge, std::vector<Edge>, EdgeComparator> pq;
     for (int i = 0; i < graph.V; i++) {
         for (int j = 0; j < graph.adj[i].size(); j++) {
             pq.push(Edge(i, graph.adj[i].at(j).first, graph.adj[i].at(j).second));
         }
     }
-    AdjListGraph lista = AdjListGraph(graph.V, graph.E);
+    
     DisjointSet set = DisjointSet(graph.V);
     int sum = 0;
     
@@ -41,15 +43,16 @@ void MSTAlgorithm::kruskal(AdjListGraph graph) {
         if (set.findSet(edge.src) != set.findSet(edge.dest)) {
             set.union_(edge.src, edge.dest);
             sum += edge.weight;
-//            lista.addUndirected(edge.src, edge.dest, edge.weight);
-            lista.addDirected(edge.src, edge.dest, edge.weight);
+            listaKrawedzi.addDirected(edge.src, edge.dest, edge.weight);
         }
     }
-    std::cout << "KRUSKAL MST sum: " << sum<<"\n";
-    lista.toPrint();
+    mstVal = sum;
+    return listaKrawedzi;
+
 }
 
-void MSTAlgorithm::kruskal(AdjMatrixGraph graph) {
+EdgeList MSTAlgorithm::kruskal(AdjMatrixGraph graph) {
+    EdgeList listaKrawedzi;
     std::priority_queue<Edge, std::vector<Edge>, EdgeComparator> pq;
 
     for (int i = 0; i < graph.V; i++) {
@@ -60,7 +63,7 @@ void MSTAlgorithm::kruskal(AdjMatrixGraph graph) {
         }
     }
     
-    AdjMatrixGraph macierz = AdjMatrixGraph(graph.V);
+    
     DisjointSet set = DisjointSet(graph.V);
     int sum = 0;
     
@@ -71,16 +74,17 @@ void MSTAlgorithm::kruskal(AdjMatrixGraph graph) {
         if (set.findSet(edge.src) != set.findSet(edge.dest)) {
             set.union_(edge.src, edge.dest);
             sum += edge.weight;
-            macierz.addUndirected(edge.src, edge.dest, edge.weight);
+            listaKrawedzi.addDirected(edge.src, edge.dest, edge.weight);
         }
     }
-    std::cout << "KRUSKAL MST: " << sum<<"\n";
-    macierz.print();
+    mstVal = sum;
+    return listaKrawedzi;
+
 }
 
 
-void MSTAlgorithm::prim(AdjMatrixGraph graph) {
-    AdjMatrixGraph macierz = AdjMatrixGraph(graph.V);
+EdgeList MSTAlgorithm::prim(AdjMatrixGraph graph) {
+    EdgeList listaKrawedzi;
     int sum = 0;
     
     int currentEdge = 0;
@@ -113,18 +117,17 @@ void MSTAlgorithm::prim(AdjMatrixGraph graph) {
         selected[v] = true;
         currentEdge++;
         sum += min;
-        macierz.addUndirected(u, v, min);
+        listaKrawedzi.addDirected(u, v, min);
         
     }
-    
-    std::cout << "PRIM MST: " << sum <<"\n";
-    macierz.print();
+    mstVal = sum;
+    return listaKrawedzi;
 
 };
 
 
-void MSTAlgorithm::prim(AdjListGraph graph) {
-    AdjListGraph lista = AdjListGraph(graph.V);
+EdgeList MSTAlgorithm::prim(AdjListGraph graph) {
+    EdgeList listaKrawedzi;
     int sum = 0;
     
     int currentEdge = 0;
@@ -157,10 +160,10 @@ void MSTAlgorithm::prim(AdjListGraph graph) {
         selected[v] = true;
         currentEdge++;
         sum += min;
-        lista.addDirected(u, v, min);
+        listaKrawedzi.addDirected(u, v, min);
     }
     
-    std::cout << "PRIM MST: " << sum <<"\n";
-    lista.toPrint();
+    mstVal = sum;
+    return listaKrawedzi;
 };
 

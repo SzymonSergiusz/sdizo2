@@ -24,8 +24,12 @@ public:
     
     void toPrint();
     void loadFromFile(std::string fileName);
-
+    void loadFromFileDijkstra(std::string fileName);
     
+    void generateGraphDirected(int V, float density);
+    void generateGraphUndirected(int V, float density);
+
+    int random(int doIlu);
 };
 
 #endif /* AdjList_hpp */
