@@ -31,6 +31,7 @@ public:
     void generateGraphDirected(int V, float density);
     void generateGraphUndirected(int V, float density);
     
+    
     int random(int doIlu);
 };
 #endif /* AdjMatrixGraph_hpp */

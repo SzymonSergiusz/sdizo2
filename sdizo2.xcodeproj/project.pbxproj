@@ -50,9 +50,7 @@
 		3189C05B2A1FCEDA0062FC6D /* ShortestPath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShortestPath.hpp; sourceTree = "<group>"; };
 		3189C05D2A1FE4FA0062FC6D /* dane_droga_sk2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_droga_sk2.txt; sourceTree = "<group>"; };
 		3189C05E2A1FE4FA0062FC6D /* dane_droga_sk1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_droga_sk1.txt; sourceTree = "<group>"; };
-		3189C05F2A1FEE840062FC6D /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		3189C0602A22140A0062FC6D /* dane_droga_sk_BF.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dane_droga_sk_BF.txt; sourceTree = "<group>"; };
-		3189C0612A2216030062FC6D /* testBF.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBF.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,13 +67,11 @@
 		310304C62A131E9400E3F041 /* pliki */ = {
 			isa = PBXGroup;
 			children = (
-				3189C0612A2216030062FC6D /* testBF.txt */,
 				3189C0602A22140A0062FC6D /* dane_droga_sk_BF.txt */,
 				3189C05E2A1FE4FA0062FC6D /* dane_droga_sk1.txt */,
 				3189C05D2A1FE4FA0062FC6D /* dane_droga_sk2.txt */,
 				310304C72A1321EC00E3F041 /* dane_mst.txt */,
 				310304C82A1321EC00E3F041 /* dane_mst2.txt */,
-				3189C05F2A1FEE840062FC6D /* test.txt */,
 			);
 			path = pliki;
 			sourceTree = "<group>";

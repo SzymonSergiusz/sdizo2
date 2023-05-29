@@ -6,9 +6,15 @@
 //
 
 #include "AdjMatrixGraph.hpp"
+#include "DisjointSet.hpp"
 #include <iostream>
 #include <fstream>
 #include <random>
+
+
+#include <vector>
+#include <algorithm>
+
 AdjMatrixGraph::AdjMatrixGraph(int V) : V(V) {
     
     matrix = new int*[V];
@@ -125,36 +131,43 @@ void AdjMatrixGraph::loadFromFileDijkstra(std::string fileName) {
 }
 void AdjMatrixGraph::generateGraphDirected(int nV, float density) {
     V = nV;
-    
+
     matrix = new int*[V];
     for (int i = 0; i < V; i++) {
         matrix[i] = new int[V];
-        
+
         for (int j = 0; j < V; j++) {
             matrix[i][j] = 0;
         }
     }
+
+
+    int edges100perc = int((1.0 * float(nV*(nV-1)))/2);
     
+    int doUsuniecia = int(((1.0 - density) * float(nV*(nV-1)))/2);
+//    std::cout << "Do usuniecia " << doUsuniecia <<"\n";
+
     
-    int nEdges = int((density * float(nV*(nV-1)))/2);
-    
-    std::cout << "Liczba krawedzi " << nEdges <<"\n";
-    
+//    int nEdges = int((density * float(nV*(nV-1)))/2);
+    int nEdges = edges100perc - doUsuniecia;
+
+//    std::cout << "Liczba krawedzi " << nEdges <<"\n";
+
     int countEdges = 0;
     for (int i = 0; i < V-1; i++) {
-        
+
         if (i+1 == V-1) {
             addDirected(i, 0, random(20)+1);
         }else {
             addDirected(i, i+1, random(20)+1);
         }
         countEdges++;
-        
+
     }
-    
-    
+
+
     while (nEdges >= countEdges) {
-        
+
         int src = random(nV-1);
         int dest = random(nV-1);
 
@@ -163,7 +176,7 @@ void AdjMatrixGraph::generateGraphDirected(int nV, float density) {
             dest = random(nV-1);
         }
         addDirected(src, dest, random(nV)+1);
-        std::cout << "cE: " << countEdges <<"\n";
+//        std::cout << "cE: " << countEdges <<"\n";
         countEdges++;
     }
     E = nEdges;
@@ -182,9 +195,16 @@ void AdjMatrixGraph::generateGraphUndirected(int nV, float density) {
     }
     
     
-    int nEdges = int((density * float(nV*(nV-1)))/2);
+    int edges100perc = int((1.0 * float(nV*(nV-1)))/2);
     
-    std::cout << "Liczba krawedzi " << nEdges <<"\n";
+    int doUsuniecia = int(((1.0 - density) * float(nV*(nV-1)))/2);
+//    std::cout << "Do usuniecia " << doUsuniecia <<"\n";
+
+    
+//    int nEdges = int((density * float(nV*(nV-1)))/2);
+    int nEdges = edges100perc - doUsuniecia;
+    
+//    std::cout << "Liczba krawedzi " << nEdges <<"\n";
     
     int countEdges = 0;
     for (int i = 0; i < V-1; i++) {
@@ -198,7 +218,7 @@ void AdjMatrixGraph::generateGraphUndirected(int nV, float density) {
     }
     
     while (nEdges >= countEdges) {
-        
+        countEdges++;
         int src = random(nV-1);
         int dest = random(nV-1);
 
@@ -206,12 +226,13 @@ void AdjMatrixGraph::generateGraphUndirected(int nV, float density) {
             src = random(nV-1);
             dest = random(nV-1);
         }
-        std::cout << "cE: " << countEdges <<"\n";
-        countEdges++;
+//        std::cout << "cE: " << countEdges <<"\n";
+        
         addUndirected(src, dest, random(20)+1);
     }
     E = nEdges;
 }
+
 
 int AdjMatrixGraph::random(int doIlu) {
     std::random_device randDev;

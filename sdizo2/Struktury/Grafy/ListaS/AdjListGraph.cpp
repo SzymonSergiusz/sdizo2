@@ -100,9 +100,15 @@ void AdjListGraph::generateGraphDirected(int nV, float density) {
     adj = new std::vector<std::pair<int, int>>[V];
    
     
-    int nEdges = int((density * float(nV*(nV-1)))/2);
+    int edges100perc = int((1.0 * float(nV*(nV-1)))/2);
     
-    std::cout << "Liczba krawedzi " << nEdges <<"\n";
+    int doUsuniecia = int(((1.0 - density) * float(nV*(nV-1)))/2);
+//    std::cout << "Do usuniecia " << doUsuniecia <<"\n";
+
+    
+//    int nEdges = int((density * float(nV*(nV-1)))/2);
+    int nEdges = edges100perc - doUsuniecia;
+//    std::cout << "Liczba krawedzi " << nEdges <<"\n";
     
     int countEdges = 0;
     for (int i = 0; i < V-1; i++) {
@@ -135,9 +141,15 @@ void AdjListGraph::generateGraphUndirected(int nV, float density) {
     adj = new std::vector<std::pair<int, int>>[V];
     
     
-    int nEdges = int((density * float(nV*(nV-1)))/2);
+    int edges100perc = int((1.0 * float(nV*(nV-1)))/2);
     
-    std::cout << "Liczba krawedzi " << nEdges <<"\n";
+    int doUsuniecia = int(((1.0 - density) * float(nV*(nV-1)))/2);
+//    std::cout << "Do usuniecia " << doUsuniecia <<"\n";
+
+    
+//    int nEdges = int((density * float(nV*(nV-1)))/2);
+    int nEdges = edges100perc - doUsuniecia;
+//    std::cout << "Liczba krawedzi " << nEdges <<"\n";
     
     int countEdges = 0;
     for (int i = 0; i < V-1; i++) {

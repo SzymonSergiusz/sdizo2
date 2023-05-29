@@ -7,7 +7,6 @@
 
 #include "DisjointSet.hpp"
 
-
 DisjointSet::DisjointSet(int n) {
     parent = new int[n];
     rank = new int[n];

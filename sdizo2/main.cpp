@@ -11,6 +11,7 @@
 #include "ShortestPath.hpp"
 #include <vector>
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 
@@ -256,12 +257,15 @@ void menu_belford() {
                 
             case '2':
                 isCorrect = spLista.belford(adjList, 0);
-                if (isCorrect) spLista.print();
-                else std::cout << "Wykryto cykl ujemny\n";
+                if (isCorrect) {
+                    spLista.print();
+
+                } else std::cout << "Wykryto cykl ujemny\n";
+                                
                 break;
             case '3':
                 isCorrect = spMacierz.belford(adjMatrix, 0);
-                if (isCorrect) spLista.print();
+                if (isCorrect) spMacierz.print();
                 else std::cout << "Wykryto cykl ujemny\n";
                 break;
                 
@@ -289,7 +293,7 @@ void menu_belford() {
             case 'T':
                 AdjMatrixGraph testM(0);
                 AdjListGraph testL(0);
-                testM.loadFromFileDijkstra("/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/sdizo2/sdizo2/pliki/testBF.txt");
+                testM.loadFromFileDijkstra("/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/sdizo2/sdizo2/pliki/dane_droga_sk_BF.txt");
                 testL.loadFromFileDijkstra("/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/sdizo2/sdizo2/pliki/dane_droga_sk1.txt");
                 ShortestPath testSpM, testSpL;
                 std::cout << "Dla macierzy:\n";
@@ -300,7 +304,10 @@ void menu_belford() {
                 isCorrect = testSpL.belford(testL, 0);
                 if (isCorrect) testSpL.print();
                 else std::cout << "Wykryto cykl ujemny\n";
-                
+                std::cout << "Dla listy dijkstra :\n";
+                testSpL.dijkstra(testL, 0);
+                testSpL.print();
+ 
                 break;
         }
                 
@@ -308,6 +315,215 @@ void menu_belford() {
         
     }
 
+void writeCsvFile(const std::string &filename, const std::string &operation, int nV, float density, double time) {
+    std::ofstream file(filename, std::ios_base::app);
+    if (!file) { //
+        std::cerr << "nie ma pliku" << filename << std::endl;
+        return;
+    }
+    file << operation << "," << nV << "," << density << "," << time << std::endl;
+    
+    
+    std::cout << "done: " << operation << " dla " << nV << "," << density << "\n";
+}
+
+
+int wierzcholki_tab[] = {50, 100, 200, 500, 1000, 2000};
+//int wierzcholki_tab[] = {2000};
+float density_tab[] = {0.2, 0.6, 0.99};
+//float density_tab[] = {0.2};
+
+int ileRazy = 50;
+string prim_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/primPOP.csv";
+string kruskal_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/kruskalPOP.csv";
+string dijkstra_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/dijkstra.csv";
+string belford_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/belfordPOP.csv";
+
+
+
+void test_prim() {
+    //lista
+    MSTAlgorithm mst;
+    AdjListGraph adj(0);
+    for (float dens : density_tab) {
+        
+        for(auto V : wierzcholki_tab) {
+            
+            for(int i = 0; i < ileRazy; i++) {
+                adj.generateGraphUndirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+
+                mst.prim(adj);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(prim_pomiary,"PRIM LISTA SASIADOW", V, dens, duration);
+            }
+            
+
+            
+            
+        }
+        
+    }
+    
+    //macierz
+    AdjMatrixGraph matrix(0);
+    for (float dens : density_tab) {
+        
+        for(auto V : wierzcholki_tab) {
+            for(int i = 0; i < ileRazy; i++) {
+                matrix.generateGraphUndirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+                
+                mst.prim(matrix);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(prim_pomiary,"PRIM MACIERZ", V, dens, duration);
+            }
+        }
+        
+    }
+    
+}
+
+
+void test_kruskal() {
+    //lista
+    MSTAlgorithm mst;
+    AdjListGraph adj(0);
+    for (float dens : density_tab) {
+        
+        for(auto V : wierzcholki_tab) {
+            
+            for(int i = 0; i < ileRazy; i++) {
+                adj.generateGraphUndirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+                
+                mst.kruskal(adj);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(kruskal_pomiary,"KRUSKAL LISTA SASIADOW", V, dens, duration);
+            }
+        }
+        
+    }
+    
+    //macierz
+    AdjMatrixGraph matrix(0);
+    for (float dens : density_tab) {
+        
+        
+        for(auto V : wierzcholki_tab) {
+            for(int i = 0; i < ileRazy; i++) {
+                matrix.generateGraphUndirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+                
+                mst.kruskal(matrix);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(kruskal_pomiary,"KRUSKAL MACIERZ", V, dens, duration);
+                
+                
+            }
+        }
+        
+    }
+    
+}
+
+
+void test_dijkstra() {
+    //lista
+    ShortestPath sp;
+    AdjListGraph adj(0);
+    for (float dens : density_tab) {
+        
+        for(auto V : wierzcholki_tab) {
+            for(int i = 0; i < ileRazy; i++) {
+                adj.generateGraphDirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+                
+                sp.dijkstra(adj, 0);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(dijkstra_pomiary,"DIJKSTRA LISTA SASIADOW", V, dens, duration);
+            }
+        }
+        
+    }
+    
+    //macierz
+    AdjMatrixGraph matrix(0);
+    for (float dens : density_tab) {
+        
+        for(auto V : wierzcholki_tab) {
+            for(int i = 0; i < ileRazy; i++) {
+                matrix.generateGraphDirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+                
+                sp.dijkstra(matrix, 0);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(dijkstra_pomiary,"DIJKSTRA MACIERZ", V, dens, duration);
+            }
+        }
+        
+    }
+    
+}
+void test_belford() {
+    //lista
+    ShortestPath sp;
+    AdjListGraph adj(0);
+    for (float dens : density_tab) {
+        
+        for(auto V : wierzcholki_tab) {
+            for(int i = 0; i < ileRazy; i++) {
+                adj.generateGraphDirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+                
+                sp.belford(adj, 0);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(belford_pomiary,"BELFORD LISTA SASIADOW", V, dens, duration);
+            }
+        }
+        
+    }
+    
+    //macierz
+    AdjMatrixGraph matrix(0);
+    for (float dens : density_tab) {
+        
+        for(auto V : wierzcholki_tab) {
+            for(int i = 0; i < ileRazy; i++) {
+                matrix.generateGraphDirected(V, dens);
+
+                auto start = chrono::high_resolution_clock::now();
+                
+                sp.belford(matrix, 0);
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration<double>(end - start).count();
+                writeCsvFile(belford_pomiary,"BELFORD MACIERZ", V, dens, duration);
+            }
+        }
+        
+    }
+    
+}
+void test() {
+//    test_prim();
+    test_belford();
+//    test_kruskal();
+//    test_dijkstra();
+}
 int main(int argc, char *argv[]) {
         char option;
         do {
@@ -327,8 +543,21 @@ int main(int argc, char *argv[]) {
                     break;
                 case '2':
                     menu_dijkstra();
+                    break;
                 case '3':
                     menu_belford();
+                    break;
+                case 'T':
+                    test();
+                    break;
+                case 'S':
+                    AdjMatrixGraph m(0);
+                    m.generateGraphDirected(20, 0.99);
+                    MSTAlgorithm mst;
+                    EdgeList el = mst.prim(m);
+                    el.print();
+                    
+                    break;
             }
             
         } while (option != '0');
