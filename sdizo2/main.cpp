@@ -337,7 +337,7 @@ int ileRazy = 50;
 string prim_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/primPOP.csv";
 string kruskal_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/kruskalPOP.csv";
 string dijkstra_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/dijkstra.csv";
-string belford_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/belfordPOP.csv";
+string belford_pomiary = "/Users/sergiusz/Documents/studia/CzwartySemestr/SDIZO/sdizo2/wyniki/belfordPOPMACIERZ.csv";
 
 
 
@@ -481,22 +481,22 @@ void test_belford() {
     //lista
     ShortestPath sp;
     AdjListGraph adj(0);
-    for (float dens : density_tab) {
-        
-        for(auto V : wierzcholki_tab) {
-            for(int i = 0; i < ileRazy; i++) {
-                adj.generateGraphDirected(V, dens);
-
-                auto start = chrono::high_resolution_clock::now();
-                
-                sp.belford(adj, 0);
-                auto end = chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration<double>(end - start).count();
-                writeCsvFile(belford_pomiary,"BELFORD LISTA SASIADOW", V, dens, duration);
-            }
-        }
-        
-    }
+//    for (float dens : density_tab) {
+//        
+//        for(auto V : wierzcholki_tab) {
+//            for(int i = 0; i < ileRazy; i++) {
+//                adj.generateGraphDirected(V, dens);
+//
+//                auto start = chrono::high_resolution_clock::now();
+//                
+//                sp.belford(adj, 0);
+//                auto end = chrono::high_resolution_clock::now();
+//                auto duration = std::chrono::duration<double>(end - start).count();
+//                writeCsvFile(belford_pomiary,"BELFORD LISTA SASIADOW", V, dens, duration);
+//            }
+//        }
+//        
+//    }
     
     //macierz
     AdjMatrixGraph matrix(0);

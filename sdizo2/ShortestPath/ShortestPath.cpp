@@ -110,13 +110,15 @@ bool ShortestPath::belford(AdjMatrixGraph graph, int src) {
     }
     distance[src] = 0;
 
-    for (int u = 0; u < graph.V; u++) {
-        for (int v = 0; v < graph.V; v++) {
-            int w = graph.matrix[u][v];
-
-            if (w != 0 && distance[u] != INT_MAX && distance[v] > distance[u] + w) {
-                distance[v] = distance[u] + w;
-                parent[v] = u;
+    for (int i = 0; i < graph.V-1 ; i++) {
+        for (int u = 0; u < graph.V; u++) {
+            for (int v = 0; v < graph.V; v++) {
+                int w = graph.matrix[u][v];
+                
+                if (w != 0 && distance[u] != INT_MAX && distance[v] > distance[u] + w) {
+                    distance[v] = distance[u] + w;
+                    parent[v] = u;
+                }
             }
         }
     }
@@ -145,7 +147,7 @@ bool ShortestPath::belford(AdjListGraph graph, int src) {
     }
     distance[src] = 0;
     
-    for (int i = 0; i < graph.V ; i++) {
+    for (int i = 0; i < graph.V-1 ; i++) {
         for (int u = 0; u < graph.V; u++) {
             for (auto pair : graph.adj[u]) {
                 int v = pair.first;
